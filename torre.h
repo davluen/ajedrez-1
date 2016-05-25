@@ -19,9 +19,9 @@ public:
 
     ~torre();
 
-    bool movLegal(casilla& destino);
+    const bool movLegal(casilla& destino) const;
 
-    void imprimir(ostream& salida);
+    const void imprimir(ostream& salida) const;
 
 };
 

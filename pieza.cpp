@@ -9,9 +9,9 @@
 #include "rey.h"
 #include "juego.h"
 
-    pieza::pieza(){
+#include <iostream>
 
-    }
+    pieza::pieza(){    }
 
     pieza::pieza(bool& color) : _color(color), _primerMovimiento(false){
 
@@ -21,11 +21,11 @@
 
     }
 
-    string& pieza::color(){
-        return color;
+    const bool& pieza::color() const {
+        return _color;
     }
 
-    casilla& pieza::posicion(){
+    casilla& pieza::posicion() const {
         return *_posicion;
     }
 
@@ -36,7 +36,7 @@
         return _posicion;
     }
 
-    bool pieza::moverPieza(jugador& jugadorActual, casilla& destino){
+    const bool pieza::moverPieza(const jugador& jugadorActual, casilla& destino){
 
         bool esLegal = movLegal(destino);
         set<pieza*>::iterator miIterator;
@@ -100,10 +100,10 @@
 
     }
 
-    bool pieza::poner(casilla* destino){
+    void pieza::poner(casilla* destino){
         _posicion = destino;
     }
 
-    bool pieza::movida(){
+    const bool pieza::movida() const{
             return _primerMovimiento;
     }

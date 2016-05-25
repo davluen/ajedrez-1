@@ -18,6 +18,9 @@ class pieza;
 class casilla {
 
 public:
+
+    casilla();
+
     casilla(int x, int y);
 
     ~casilla();
@@ -26,13 +29,13 @@ public:
 
     int coordY();
 
-    bool ocupada();
+    const bool ocupada() const;
 
-    pieza& ocupante();
+    pieza& ocupante() const;
 
     void ponerPieza(pieza* pieza);
 
-    void imprimir(ostream& salida);
+    void imprimir(ostream& salida) const;
 
     friend ostream& operator<< (ostream& salida, const casilla& casilla);
 

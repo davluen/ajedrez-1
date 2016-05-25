@@ -4,7 +4,6 @@
 
 #include "juego.h"
 #include "casilla.h"
-#include "tablero.h"
 #include "jugador.h"
 #include "pieza.h"
 #include "peon.h"
@@ -13,10 +12,11 @@
 #include "reina.h"
 #include "rey.h"
 #include "peon.h"
+#include "torre.h"
 
 jugador* _siguienteJugador;
 
-juego::juego() { }
+juego::juego() {}
 
 juego::~juego(){}
 
@@ -25,7 +25,7 @@ jugador& juego::siguienteJugador() {
 }
 
 void juego::inicializar() {
-
+//TODO: arreglar el tema de colores
     bool negro = 0;
     bool blanco = 1;
 
@@ -119,6 +119,8 @@ void juego::inicializar() {
     }
 
     // Create players
+    //TODO: implementar nombrado de jugadores
+    //TODO: implementar peticion de tiempo maximo
     _jugador1 = new jugador(string("Jugador 1"), reyB, _piezasB);
     _jugador2 = new jugador(string("Jugador 2"), reyN, _piezasN);
 
@@ -128,8 +130,7 @@ void juego::inicializar() {
     tablero::getTablero().imprimir(cout);
 
     //Bucle de juego
-    while (true)
-    {
+    while (_contadorTablas < 50) {
         //Pedir movimiento al jugador
         siguienteJugador().movimiento();
 
@@ -138,25 +139,38 @@ void juego::inicializar() {
 
         //Volvemos a imprimir el tablero
         tablero::getTablero().imprimir(cout);
+
+        //incrementamos el contador de jugadas
+        _numJugadas++;
+        _contadorTablas++;
+
+        cout << _contadorTablas << endl;
     }
+
+    cout << "Han transcurrido 50 jugadas sin capturas ni movimiento de peones" << endl;
+    cout << "Fin de la partida por tablas" << endl;
 }
 
-jugador& juego::adversario(jugador &jugador) {
 
-    jugador* adversario;
-
-    //Consultamos el color del rey
-    if (jugador.miRey().color() == 0){
-        adversario =  _jugador1;
+jugador& juego::adversario(const jugador& jugador)
+{
+    if (jugador.miRey().color() == 0) {
+        return *_jugador1;
     }
 
     else {
-        adversario = _jugador2;
+        return *_jugador2;
     }
 
-    return *adversario;
-
 }
+unsigned int juego::_numJugadas;
+unsigned int juego::_contadorTablas;
+
+
+void juego::resetContadorTablas(){
+    _contadorTablas = 0;
+}
+
 
 //inicializamos variables
 set<pieza*>* juego::_piezasB;

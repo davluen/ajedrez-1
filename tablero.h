@@ -8,14 +8,20 @@
 #include <vector>
 #include <iostream>
 
+using namespace std;
+
 class casilla;
+class jugador;
+class rey;
+class tablero;
+class pieza;
 
 class tablero {
 public:
 
     casilla& casillaPorCoord(int x, int y);
 
-    int getDimensiones();
+    int getDimensiones() const;
 
     bool comprobarVertical(casilla& origen, casilla& destino);
 
@@ -23,9 +29,9 @@ public:
 
     bool comprobarDiagonal(casilla& origen,casilla& destino);
 
-    void imprimir(ostream& salida);
+    void imprimir(ostream& salida) const;
 
-    tablero& getTablero();
+    static tablero& getTablero();
 
     friend ostream& operator<< (ostream& salida, const tablero& tablero);
 
@@ -35,10 +41,10 @@ private:
 
     ~tablero();
 
-    vector<vector<casilla>> _casillas;
+    vector< vector<casilla> > _casillas;
 
-    tablero _mitablero;
-    const int _DIMENSIONES;
+    static tablero _tablero;
+    static const int _DIMENSIONES;
 
 };
 

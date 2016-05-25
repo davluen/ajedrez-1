@@ -2,8 +2,30 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/juego.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rey.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/tablero.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pieza.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/casilla.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/alfil.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/reina.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/jugador.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/tablero.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/caballo.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/juego.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/reina.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/casilla.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/caballo.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/torre.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/alfil.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/peon.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pieza.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rey.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/jugador.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/torre.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/peon.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

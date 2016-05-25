@@ -7,8 +7,7 @@
 
 tablero::tablero(int dimension){
     //Vector de casillas de la clase vector
-    DIM=dimension;
-    std::vector<casillas> fila(DIM);
+    std::vector<casilla> fila(dimension);
 
     for(int i=0;i<dimension;i++){
         //Recordamos que _casillas es un vector de vectore de casilla
@@ -31,6 +30,10 @@ tablero::~tablero(){
 
 }
 
+casilla& tablero::casillaPorCoord(int x, int y) {
+    return _casillas.at(x).at(y);
+}
+
 //Funciones que comprueban si está libre el camino
 
 bool tablero::comprobarVertical(casilla& origen, casilla& destino){
@@ -38,45 +41,36 @@ bool tablero::comprobarVertical(casilla& origen, casilla& destino){
 
     //Suponemos que avanza por defecto
     int direccion=1;
-    if(origen.coordX()>destino.coodX()) direccion=-1;
+    if(origen.coordX()>destino.coordX()) direccion=-1;
 
-    if(this->getTablero().casillaPorCoord(origen.coordX()+i*direccion,origen.coordY()).ocupada()) libre=false;
-
+    for (int i = 1; i < abs(origen.coordX() - destino.coordX()); i++) {
+        if (this->getTablero().casillaPorCoord(origen.coordX() + i * direccion, origen.coordY()).ocupada()) libre = false;
+    }
     return libre;
 }
 
 bool tablero::comprobarHorizontal(casilla& origen, casilla& destino){
     bool libre=true;
     int direccion=1;
-    if(origen.coordY()>destino.coodY()) direccion = -1;
 
-    for(int i=0; i<abs(origen.coordY()>destino.coodY()); i++){
+    if(origen.coordY() > destino.coordY()) direccion = -1;
+
+    for(int i = 1; i < abs(origen.coordY() - destino.coordY()); i++){
         if(this->getTablero().casillaPorCoord(origen.coordX(),origen.coordY()+i*direccion).ocupada()) libre=false;
     }
 
     return libre;
 }
 
-bool tablero::comprobarHorizontal(casilla& origen, casilla& destino){
-    bool libre=true;
-    int direccion=1;
-    if(origen.coordY()>destino.coodY()) direccion = -1;
-
-    for(int i=0; i<abs(origen.coordY()>destino.coodY()); i++){
-        if(this->getTablero().casillaPorCoord(origen.coordX(),origen.coordY()+i*direccion).ocupada()) libre=false;
-    }
-
-    return libre;
-}
 
 bool tablero::comprobarDiagonal(casilla& origen, casilla& destino){
     bool libre=true;
     int dirX=1,dirY=1;
-    if(origen.coordY()>destino.coodY()) dirY = -1;
-    if(origen.coordX()>destino.coodX()) dirX = -1;
+    if(origen.coordY()>destino.coordY()) dirY = -1;
+    if(origen.coordX()>destino.coordX()) dirX = -1;
 
-    for(int i=0; i<abs(origen.coordX()>destino.coodX()); i++){
-        for(int j=0; j<abs(origen.coordY()>destino.coodY()); j++){
+    for(int i=1; i < abs(origen.coordX() - destino.coordX()); i++){
+        for(int j=1; j < abs(origen.coordY() - destino.coordY()); j++){
             if(this->getTablero().casillaPorCoord(origen.coordX()+i*dirX,origen.coordY()+j*dirY).ocupada()) libre=false;
         }
     }
@@ -87,28 +81,60 @@ bool tablero::comprobarDiagonal(casilla& origen, casilla& destino){
 
 //Salida por pantalla
 
-tablero::imprimir(ostream%){
+void tablero::imprimir(ostream& salida) const{
 
-output<<"    a    b    c    d    e    f    g    h"<<endl;
-for(int i=0;i<this->getDimension();i++){
+salida << "    a   b   c   d   e   f   g   h" << endl;
+for(int i=0; i < this->getDimensiones(); i++){
 
-//Parte superior de las casilla
-output<<(8-i)<<" .";
-for(int j=0;j<this->getDimension();j++){
-if(!(abs(i+j)%2)) output<<"####";
-else output<<"    ";
-}
-output<<endl;
+    //Parte superior de las casilla
+    salida<<(8-i)<<" .";
 
-output<<"    ";
-for(int j=0;j<this->getDimension();j++){
-if(!(abs(i+j)%2)) output<<"#"<<_casillas[i][j].imprimir(output)<<"#";
-else output<<" "<<_casillas[i][j].imprimir(output)<<" ";
+    for(int j=0; j < this->getDimensiones(); j++){
+
+        if(!(abs(i+j)%2)) salida<<"####";
+        else salida<<"    ";
+    }
+
+    salida<<endl;
+
+    salida<<"   ";
+
+    for(int j=0; j < this->getDimensiones(); j++){
+
+        if(!(abs(i+j)%2)){
+            salida<<"#";
+            //Si la casilla está vacía la pinta de negro entera
+            if(_casillas[i][j].ocupada()) _casillas[i][j].imprimir(salida);
+            else salida << "##";
+
+            salida<<"#";
+        }
+
+        else {
+            salida<<" ";
+            _casillas[i][j].imprimir(salida);
+            salida <<" ";
+        }
+
+        }
+
+    salida << endl;
+    //Parte inferior de las casilla
+    salida<<"   ";
+
+    for(int j=0; j < this->getDimensiones(); j++){
+
+        if(!(abs(i+j)%2)) salida<<"####";
+        else salida<<"    ";
+    }
+
+    salida<<". "<<(8-i)<<endl;
+
+    }
+
+    salida<<"    a   b   c   d   e   f   g   h"<<endl;
 }
-output<<". "<<(8-i)<<endl;
-}
-output<<"    a    b    c    d    e    f    g    h"<<endl;
-}
+
 
 
 //Obtencion de variables privadas
@@ -117,22 +143,22 @@ tablero& tablero::getTablero(){
     return _tablero;
 }
 
-int getDimension(){
-    return DIM;
+int tablero::getDimensiones() const{
+    return _casillas.size();
 }
 
 
 //Operador amigo
 
-ostream& operator<< (ostream& output, tablero& tablero)
+ostream& operator<< (ostream& salida, const tablero& tablero)
 {
     // Para llamar a la impresion del tablero en el juego
-    tablero.impreimir(output);
-    return output;
+    tablero.imprimir(salida);
+    return salida;
 }
 
 
 //variables
 
-int tablero::DIM;
+const int tablero::_DIMENSIONES = 8;
 tablero tablero::_tablero;

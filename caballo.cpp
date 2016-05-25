@@ -3,7 +3,6 @@
 //
 
 #include "caballo.h"
-#include "pieza.h"
 #include "casilla.h"
 #include "tablero.h"
 
@@ -17,7 +16,7 @@ caballo::~caballo() {
 
 }
 
-bool caballo::movLegal(casilla& destino) {
+const bool caballo::movLegal(casilla& destino) const {
 
     bool esLegal = false;
 
@@ -29,7 +28,7 @@ bool caballo::movLegal(casilla& destino) {
 
         if(abs(this->posicion().coordX() - destino.coordX()) == 1){
 
-            if(abs(this->posicion().coordY() - destino.coordY() == 2)){
+            if(abs(this->posicion().coordY() - destino.coordY()) == 2){
 
                 esLegal = true;
 
@@ -39,7 +38,7 @@ bool caballo::movLegal(casilla& destino) {
 
         if(abs(this->posicion().coordY() - destino.coordY()) == 1){
 
-            if(abs(this->posicion().coordX() - destino.coordX() == 2)){
+            if(abs(this->posicion().coordX() - destino.coordX()) == 2){
 
                 esLegal = true;
 
@@ -52,7 +51,6 @@ bool caballo::movLegal(casilla& destino) {
 
 }
 
-void caballo::imprimir(ostream& salida)
-{
+const void caballo::imprimir(ostream& salida) const {
     salida << color() << string("C");
 }

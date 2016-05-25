@@ -3,7 +3,6 @@
 //
 
 #include "reina.h"
-#include "pieza.h"
 #include "casilla.h"
 #include "tablero.h"
 
@@ -17,14 +16,14 @@ reina::~reina() {
 
 }
 
-bool reina::movLegal(casilla &destino) {
+const bool reina::movLegal(casilla &destino) const {
 
     bool esLegal=false;
 
-    if(!destino.ocupada()||(destino.ocupada().color()!=this->color())){
+    if(!destino.ocupada()||(destino.ocupante().color()!=this->color())){
         //Movimiento vertical
         if(destino.coordX()==this->posicion().coordX()){
-            if(tablero::getTablero().comprobarHorizontal(this->posicion,destino)){
+            if(tablero::getTablero().comprobarHorizontal(this->posicion(),destino)){
                 esLegal=true;
             }
         }
@@ -48,7 +47,6 @@ bool reina::movLegal(casilla &destino) {
 
 }
 
-void reina::imprimir(ostream& salida)
-{
+const void reina::imprimir(ostream& salida) const {
     salida << color() << string("A");
 }

@@ -6,6 +6,7 @@
 #include "rey.h"
 #include "tablero.h"
 #include "casilla.h"
+#include "juego.h"
 
 #include <stdexcept>
 
@@ -17,25 +18,29 @@ jugador::jugador(string nombre, rey* miRey, set<pieza*>* misPiezas) : _nombre(no
     _piezasCapturadas = new set<pieza*>();
 }
 
-string& jugador::nombre() {
+const string& jugador::nombre() const {
     return _nombre;
 }
 
-set<pieza*>& jugador::misPiezas() {
+const set<pieza*>& jugador::misPiezas() const {
     return *_misPiezas;
 }
 
-rey& jugador::miRey() {
+const rey& jugador::miRey() const {
     return *_miRey;
 }
 
-bool jugador::movimiento() {
+const bool jugador::movimiento() const {
     int fila1, fila2;
     char columnaLetra1, columnaLetra2;
-    int coluna1, columna2;
+    int columna1, columna2;
+
+    string color = "blanco";
 
     //Color para el prompt de coordenadas
-    string color = (miRey().color) ? "blanco" : "negro";
+    if(miRey().color()){
+        color = "negro";
+    }
 
 
     bool exito = false;
@@ -76,12 +81,12 @@ bool jugador::movimiento() {
             }
 
             // Comprobar que la casilla de destino no esté ocupada por una pieza del mismo color
-            if (!tablero::getTablero().casillaPorCoord(fila2, columna2).ocupada() && misPiezas().find(&tablero::getTablero().casillaPorCoord(fila2, columna2).ocupante()) != misPiezas().end()) {
+            if (tablero::getTablero().casillaPorCoord(fila2, columna2).ocupada() && misPiezas().find(&tablero::getTablero().casillaPorCoord(fila2, columna2).ocupante()) != misPiezas().end()) {
                 cout << "La casilla de destino está ocupada por otra de tus piezas" << endl;
                 coordValidas = false;
             }
 
-        } catch (coord_no_validas) {
+        } catch (out_of_range) {
             // Error de coordinadas fuera del tablero
             cout << "Las coordinadas no son válidas" << endl;
             coordValidas = false;
@@ -103,10 +108,15 @@ bool jugador::movimiento() {
     return exito;
 }
 
-void jugador::capturar(pieza& pieza) {
+//TODO: temporizador de jugadas
+
+const void jugador::capturar(pieza& pieza) const {
     // Añdimos la pieza al set de piezas capturadas
     _piezasCapturadas->insert(&pieza);
 
     // Sacamos la pieza del tablero
     pieza.poner(NULL);
+
+    //Ponemos el contador de tablas a 0
+    juego::resetContadorTablas();
 }

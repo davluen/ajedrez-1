@@ -6,6 +6,8 @@
 #define AJEDREZ_JUEGO_H
 
 #include <set>
+#include "tablero.h"
+
 
 using namespace std;
 
@@ -16,17 +18,20 @@ class pieza;
 class peon;
 class caballo;
 class alfil;
-class reina
+class reina;
 class rey;
 
 class juego {
 public:
 
-    jugador& siguienteJugador();
+    static jugador& siguienteJugador();
 
-    void inicializar();
+    static void inicializar();
 
-    jugador& adversario(jugador& jugador);
+    static jugador& adversario(const jugador& jugador);
+
+    static void resetContadorTablas();
+
 
 private:
 
@@ -38,7 +43,10 @@ private:
     static set<pieza*>* _piezasB;
     static set<pieza*>* _piezasN;
     static jugador* _jugador1;
-    static jugadot* _jugador2;
+    static jugador* _jugador2;
+
+    static unsigned int _numJugadas;
+    static unsigned int _contadorTablas;
 
 };
 

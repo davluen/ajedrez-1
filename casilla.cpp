@@ -19,24 +19,25 @@ int casilla::coordY() {
     return _y;
 }
 
-bool ocupada(){
+const bool casilla::ocupada() const{
     bool ocupada = true;
     if (!_piezaOcupante){
         ocupada = false;
     }
+    return ocupada;
 }
 
-pieza& ocupante(){
+pieza& casilla::ocupante() const{
     return *_piezaOcupante;
 }
 
-void ponerPieza(pieza* pieza){
+void casilla::ponerPieza(pieza* pieza){
     _piezaOcupante = pieza;
 }
 
-void imprimir(ostream& salida){
+void casilla::imprimir(ostream& salida) const {
 
-    salida << "|";
+    //salida << "|";
     //Imprime la pieza si la casilla está ocupada
     if (ocupada())
     {
@@ -47,10 +48,10 @@ void imprimir(ostream& salida){
     {
         salida << "  ";
     }
-    salida << "|";
+    //salida << "|";
 }
 
 //Sobrecarga de operador para imprimir la pieza
-friend ostream& operator<< (ostream& salida, const casilla& casilla){
+ostream& operator<< (ostream& salida, const casilla& casilla){
     return salida;
 }

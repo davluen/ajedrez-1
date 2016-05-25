@@ -5,26 +5,40 @@
 #ifndef AJEDREZ_PIEZA_H
 #define AJEDREZ_PIEZA_H
 
+#include <string>
+
+using namespace std;
+
+class casilla;
+class jugador;
+class tablero;
+class rey;
+class juego;
+
 
 class pieza{
 public:
     pieza();
 
-    pieza(bool& color){}
+    pieza(bool& color);
 
     virtual ~pieza();
 
-    string& color();
+    virtual const bool& color() const;
 
-    casilla& posicion();
+    virtual casilla& posicion() const;
 
-    bool moverPieza(jugador &jugadorActual, casilla &destino);
+    virtual const bool moverPieza(const jugador& jugadorActual, casilla& destino);
 
-    bool poner(casilla* destino);
+    virtual void poner(casilla* destino);
 
-    void imprimir(ostream& salida);
+    virtual const void imprimir(ostream& salida) const  = 0;
 
-    bool movLegal(casilla& destino);
+    virtual const bool movLegal(casilla& destino) const = 0;
+
+    const bool movida() const;
+
+    virtual bool enJuego();
 private:
     bool _color;
     bool _primerMovimiento;

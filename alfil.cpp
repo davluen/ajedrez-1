@@ -3,7 +3,6 @@
 //
 
 #include "alfil.h"
-#include "pieza.h"
 #include "casilla.h"
 #include "tablero.h"
 
@@ -17,7 +16,7 @@ alfil::~alfil() {
 
 }
 
-bool alfil::movLegal(casilla& destino) {
+const bool alfil::movLegal(casilla& destino) const {
 
     bool esLegal = false;
 
@@ -36,7 +35,6 @@ bool alfil::movLegal(casilla& destino) {
 
 }
 
-void alfil::imprimir(ostream& salida)
-{
+const void  alfil::imprimir(ostream& salida) const{
     salida << color() << string("A");
 }

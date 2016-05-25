@@ -9,6 +9,11 @@
 
 class casilla;
 class tablero;
+class reina;
+class pieza;
+class juego;
+class jugador;
+class rey;
 
 
 class peon : public pieza {
@@ -19,13 +24,16 @@ public:
 
     ~peon();
 
-    bool movLegal(casilla& destino);
+    const bool movLegal(casilla& destino) const;
 
-    void imprimir(ostream& salida);
+    const void imprimir(ostream& salida) const;
+
+    const bool moverPieza(const jugador& jugadorActual, casilla& destino);
+
 
 
 private:
-    //TODO: variable promocion
+    reina* _ascension;
 };
 
 

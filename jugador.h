@@ -5,6 +5,14 @@
 #ifndef AJEDREZ_JUGADOR_H
 #define AJEDREZ_JUGADOR_H
 
+#include <set>
+#include <string>
+
+using namespace std;
+
+class rey;
+class pieza;
+class tablero;
 
 class jugador {
 public:
@@ -12,17 +20,17 @@ public:
 
     jugador(string nombre, rey* miRey, set<pieza*>* misPiezas);
 
-    string& nombre();
+    const string& nombre() const;
 
-    set<pieza*>& misPiezas();
+    const set<pieza*>& misPiezas() const;
 
-    rey& miRey();
+    const rey& miRey() const;
 
 //    int puntuacion();
 
-    bool movimiento();
+    const bool movimiento() const;
 
-    void capturar(pieza& piezaCapturada);
+    const void capturar(pieza& piezaCapturada) const;
 
 private:
     string _nombre;

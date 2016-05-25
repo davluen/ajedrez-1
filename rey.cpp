@@ -3,7 +3,6 @@
 //
 
 #include "rey.h"
-#include "pieza.h"
 #include "casilla.h"
 #include "tablero.h"
 
@@ -17,7 +16,7 @@ rey::~rey() {
 
 }
 
-bool rey::movLegal(casilla& destino) {
+const bool rey::movLegal(casilla& destino) const {
 
     bool esLegal = false;
 
@@ -34,11 +33,6 @@ bool rey::movLegal(casilla& destino) {
 
 }
 
-void rey::imprimir(ostream& salida)
-{
+const void rey::imprimir(ostream& salida) const{
     salida << color() << string("R");
-}//
-// Created by Daniel Sánchez Vicente on 20/5/16.
-//
-
-#include "rey.h"
+}
