@@ -22,7 +22,7 @@ peon::peon(bool &color) : pieza(color) {
 }
 
 peon::~peon() {
-
+    delete _ascension;
 }
 
 const bool peon::movLegal(casilla &destino) const {
